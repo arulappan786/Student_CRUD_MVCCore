@@ -41,6 +41,5 @@ jobs:
         name: coverage-report
         path: coverage-report
 
-    # Optional: Trigger Render Deploy Hook
-    # - name: Trigger Render Deploy Hook
-    #   run: curl -X POST https://api.render.com/deploy/YOUR_DEPLOY_HOOK_URL
+    - name: Trigger Render Deploy Hook
+      run: curl -X POST https://api.render.com/deploy/srv-d43i5p6mcj7s73b45270?key=TuuzUUyqMgU
