@@ -1,0 +1,46 @@
+name: .NET CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.0.x' # Adjust to your target framework
+
+    - name: Restore dependencies
+      run: dotnet restore Student_CRUD_MVCCore.sln
+
+    - name: Build solution
+      run: dotnet build Student_CRUD_MVCCore.sln --no-restore --configuration Release
+
+    - name: Run tests with coverage
+      run: dotnet test StudentMVCCore.MSTest/StudentMVCCore.MSTest.csproj --configuration Release --collect:"XPlat Code Coverage"
+
+    - name: Report code coverage
+      uses: danielpalme/ReportGenerator-GitHub-Action@5.1.24
+      with:
+        reports: '**/coverage.cobertura.xml'
+        targetdir: 'coverage-report'
+        reporttypes: 'HtmlInline_AzurePipelines'
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage-report
+
+    # Optional: Trigger Render Deploy Hook
+    # - name: Trigger Render Deploy Hook
+    #   run: curl -X POST https://api.render.com/deploy/YOUR_DEPLOY_HOOK_URL
