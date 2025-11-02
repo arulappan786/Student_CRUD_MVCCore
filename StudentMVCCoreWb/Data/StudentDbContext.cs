@@ -1,0 +1,14 @@
+﻿using Microsoft.EntityFrameworkCore;
+using StudentMVCCoreWb.Entities;
+
+namespace StudentMVCCoreWb.Data
+{
+    public class StudentDbContext : DbContext
+    {
+        public StudentDbContext(DbContextOptions<StudentDbContext> options) : base(options)
+        {
+        }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<StudentMVCCoreWb.Models.StudentViewModel> StudentViewModel { get; set; } = default!;
+    }
+}
