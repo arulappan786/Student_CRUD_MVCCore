@@ -47,12 +47,11 @@ jobs:
     if: success()
 
     steps:
-     - name: Set up Docker Buildx
-       uses: docker/setup-buildx-action@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-     - name: Build Docker image
-       run: docker build -t student-crud-app -f Student_CRUD_MVCCore/Dockerfile Student_CRUD_MVCCore
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-    # Optional: Run container (only works in self-hosted runners or local testing)
-    # - name: Run Docker container
-    #   run: docker run -d -p 8080:80 --name student-crud student-crud-app
+    - name: Build Docker image
+      run: docker build -t student-crud-app -f Student_CRUD_MVCCore/Dockerfile Student_CRUD_MVCCore
