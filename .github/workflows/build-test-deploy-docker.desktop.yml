@@ -49,11 +49,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        path: .
+
+    - name: Debug workspace structure
+      run: ls -R
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
     - name: Build Docker image
-      run: docker build -t student-crud-app -f Student_CRUD_MVCCore/Dockerfile Student_CRUD_MVCCore
+      run: docker build -t student-crud-app -f ./Student_CRUD_MVCCore/Dockerfile ./Student_CRUD_MVCCore
