@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-test:
+  build-test-deploy-to-Render:
     runs-on: ubuntu-latest
 
     steps:
