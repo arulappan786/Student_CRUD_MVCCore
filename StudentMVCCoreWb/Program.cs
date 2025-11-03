@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StudentMVCCoreWb.Data;
 using StudentMVCCoreWb.Repositories;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,12 +15,19 @@ builder.Services.AddControllersWithViews();
 // Then, add the following line to register AutoMapper services:
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+var conn = Environment.GetEnvironmentVariable("DEFAULT_CONN")
+    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<StudentDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 32)),
-        mySqlOptions => mySqlOptions.EnableRetryOnFailure()
-    ));
+    options.UseMySql(conn, ServerVersion.AutoDetect(conn), 
+    mySqlOptions => mySqlOptions.EnableRetryOnFailure()));
+
+//builder.Services.AddDbContext<StudentDbContext>(options =>
+//    options.UseMySql(
+//        builder.Configuration.GetConnectionString("DefaultConnection"),
+//        new MySqlServerVersion(new Version(8, 0, 32)),
+//        mySqlOptions => mySqlOptions.EnableRetryOnFailure()
+//    ));
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
