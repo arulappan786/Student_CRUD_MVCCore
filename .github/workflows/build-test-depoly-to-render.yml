@@ -1,4 +1,4 @@
-name: .NET CI Pipeline - To Render
+name: .NET CI - Build-Test-Deploy-Render
 
 on:
   push:
