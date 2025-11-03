@@ -51,7 +51,7 @@ jobs:
        uses: docker/setup-buildx-action@v3
 
      - name: Build Docker image
-       run: docker build -t student-crud-app -f StudentMVCCoreWb/Dockerfile StudentMVCCoreWb
+       run: docker build -t student-crud-app -f Dockerfile .
 
     # Optional: Run container (only works in self-hosted runners or local testing)
     # - name: Run Docker container
