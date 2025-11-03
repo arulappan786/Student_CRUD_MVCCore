@@ -3,8 +3,6 @@ name: .NET CI - Build-Test-Deploy-Docker
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
 jobs:
   build-and-test:
