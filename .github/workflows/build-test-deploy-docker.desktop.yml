@@ -1,4 +1,4 @@
-name: .NET CI - Docker Desktop Ready
+name: .NET CI - Build-Test-Deploy-Docker.Desktop
 
 on:
   push:
